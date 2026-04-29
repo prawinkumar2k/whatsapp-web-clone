@@ -234,5 +234,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ### Image Sharing & Media
 ![Image Sharing](./screenshots/image_sharing.png)
 
+### Status (Stories)
+![Status Stories](./screenshots/status_stories.png)
+
 ---
 **Developed by [Prawinkumar](https://github.com/prawinkumar2k)**
