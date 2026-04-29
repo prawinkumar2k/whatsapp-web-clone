@@ -7,17 +7,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'backend/node-build.js'),
+      entry: path.resolve(__dirname, 'server/node-build.js'),
       name: 'Server',
-      fileName: (format) => `backend/node-build.mjs`,
+      fileName: (format) => `server/node-build.mjs`,
     },
     rollupOptions: {
       external: ['express', 'socket.io', 'mongoose', 'dotenv', 'http'],
     },
+    outDir: 'dist',
+    emptyOutDir: false,
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './frontend'),
+      '@': path.resolve(__dirname, './client'),
     },
   },
 });

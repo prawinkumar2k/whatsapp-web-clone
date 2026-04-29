@@ -44,7 +44,7 @@ A professional-grade, full-stack real-time messaging application inspired by Wha
 *   **Live UI Feedback**: Presence updates (online/offline) and message status (delivered/read) update in real-time.
 
 ### 6. Application Structure
-*   **Separation of Concerns**: Clearly divided `frontend` (React/Vite) and `backend` (Node/Express) directories.
+*   **Separation of Concerns**: Clearly divided `client` (React/Vite) and `server` (Node/Express) directories.
 *   **Reusable Components**: Modular React architecture (e.g., `MessageBubble`, `EmojiPicker`, `UsersList`).
 *   **Clean Schema**: Robust Mongoose models for `User`, `Message`, `Group`, and `CallSession`.
 
@@ -59,11 +59,6 @@ graph TD
     Backend <-->|Socket.IO| Realtime[Real-time Events]
     Realtime <-->|Broadcast| Client
 ```
-
-*   **Frontend**: Handles UI state, routing, and user interaction.
-*   **Backend**: Manages business logic, authentication, and API routing.
-*   **Database**: Stores persistent data (Users, Messages, Groups).
-*   **Socket.IO**: Manages low-latency events like typing and instant messaging.
 
 ---
 
@@ -116,12 +111,12 @@ flowchart TD
 ## 📂 Project Structure
 
 ```bash
-├── frontend/             # React application (Vite)
+├── client/               # React application (Vite)
 │   ├── components/       # Reusable UI components
 │   ├── features/         # Modular logic (Calls, Status, Workspace)
 │   ├── services/         # API and Socket clients
-│   └── styles/           # Component-specific CSS
-├── backend/              # Node.js Express server
+│   └── public/           # Static assets & Screenshots
+├── server/               # Node.js Express server
 │   ├── models/           # Mongoose schemas
 │   ├── modules/          # Business logic (Realtime, Users, Messages)
 │   └── routes/           # API Endpoints
@@ -152,20 +147,14 @@ flowchart TD
     ```
 
 3.  **Configure Environment**:
-    Create a `.env` file in the root directory:
-    ```env
-    PORT=5000
-    MONGO_URI=mongodb://127.0.0.1:27017/whatsapp-clone
-    VITE_API_URL=http://localhost:5000
-    ```
+    *   **Server**: Create `server/.env` (use `server/.env.example` as reference)
+    *   **Client**: Create `client/.env` (use `client/.env.example` as reference)
 
 4.  **Run Development Server**:
     ```bash
     pnpm dev
     ```
     *   The app will be available at `http://localhost:8080` (Vite Proxy Mode).
-
----
 
 ---
 
@@ -253,22 +242,22 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 📸 Screenshots
 
 ### Login Page
-![Login Page](./screenshots/login_v2.png)
+![Login Page](client/public/screenshots/login_v2.png)
 
 ### Chat Interface
-![Chat Interface](./screenshots/chat_interface.png)
+![Chat Interface](client/public/screenshots/chat_interface.png)
 
 ### Image Sharing & Media
-![Image Sharing](./screenshots/image_sharing.png)
+![Image Sharing](client/public/screenshots/image_sharing.png)
 
 ### Status (Stories)
-![Status Stories](./screenshots/status_stories.png)
+![Status Stories](client/public/screenshots/status_stories.png)
 
 ### Status Viewing Interface
-![Status Viewing Interface](./screenshots/status_view.png)
+![Status Viewing Interface](client/public/screenshots/status_view.png)
 
 ### Voice & Video Call Signaling
-![Calls Interface](./screenshots/calls_interface.png)
+![Calls Interface](client/public/screenshots/calls_interface.png)
 
 ---
 **Developed by [Prawinkumar](https://github.com/prawinkumar2k)**

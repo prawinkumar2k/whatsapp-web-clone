@@ -4,11 +4,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "backend": "node backend/node-build.js",
-    "build": "pnpm run build:frontend && pnpm run build:backend",
-    "build:frontend": "vite build",
-    "build:backend": "vite build --config vite.config.server.js",
-    "start": "node dist/backend/node-build.mjs",
+    "dev": "vite",
+    "server": "node server/node-build.js",
+    "build": "pnpm run build:client && pnpm run build:server",
+    "build:client": "vite build",
+    "build:server": "vite build --config vite.config.server.js",
+    "start": "node dist/server/node-build.mjs",
     "format.fix": "prettier --write ."
   },
   "dependencies": {
@@ -34,10 +35,10 @@
   "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
   "pkg": {
     "assets": [
-      "dist/frontend/*"
+      "dist/client/*"
     ],
     "scripts": [
-      "dist/backend/**/*.js"
+      "dist/server/**/*.js"
     ]
   }
 }

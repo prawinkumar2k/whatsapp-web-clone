@@ -4,7 +4,7 @@ services:
     container_name: chatapp-mongo
     restart: unless-stopped
     ports:
-      - "27018:27017" # Changed external port to 27018 to avoid local conflicts
+      - "27018:27017"
     volumes:
       - mongo-data:/data/db
     healthcheck:
@@ -16,7 +16,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: backend/Dockerfile
+      dockerfile: server/Dockerfile
     container_name: chatapp-server
     restart: unless-stopped
     environment:
@@ -32,7 +32,7 @@ services:
   client:
     build:
       context: .
-      dockerfile: frontend/Dockerfile
+      dockerfile: client/Dockerfile
     container_name: chatapp-client
     restart: unless-stopped
     environment:
