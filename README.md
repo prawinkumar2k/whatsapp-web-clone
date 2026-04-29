@@ -82,6 +82,55 @@ A professional-grade, full-stack real-time messaging application inspired by Wha
 
 ---
 
+## 🧠 System Architecture
+
+```mermaid
+graph TD
+Client[React Frontend] --> Backend[Node.js Server]
+Backend --> DB[(MongoDB)]
+Backend --> Socket[Socket.IO]
+Socket --> Client
+```
+
+### Explanation:
+
+* React handles UI rendering
+* Express handles API requests
+* MongoDB stores messages
+* Socket.IO enables real-time communication
+
+---
+
+## 🔄 Application Flow
+
+```mermaid
+flowchart TD
+UserLogin --> SelectUser
+SelectUser --> OpenChat
+OpenChat --> SendMessage
+SendMessage --> Backend
+Backend --> Database
+Backend --> Socket
+Socket --> Receiver
+Receiver --> UIUpdate
+```
+
+---
+
+## 🔁 Message Flow (Sequence)
+
+```mermaid
+sequenceDiagram
+User->>Frontend: Send message
+Frontend->>Backend: API request
+Backend->>Database: Save message
+Backend->>Socket: Emit event
+Socket-->>Receiver: Deliver message
+Receiver->>Frontend: Render message
+```
+
+---
+
 ## 📂 Project Structure
 
 ```bash
