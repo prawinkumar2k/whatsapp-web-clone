@@ -2,6 +2,8 @@
 
 A professional-grade, full-stack real-time messaging application inspired by WhatsApp Web. This project demonstrates modern web development practices, real-time communication protocols, and a scalable architecture.
 
+> **Note**: This project is a simplified WhatsApp Web clone built to satisfy the core requirements of the assignment. Additional features are included as enhancements.
+
 ---
 
 ## 📖 Overview
@@ -15,65 +17,37 @@ A professional-grade, full-stack real-time messaging application inspired by Wha
 ## ✅ Task Requirement Mapping
 
 ### 1. User Setup
-*   **Username-based Creation**: Users can join the platform by providing a unique username.
-*   **Unique Identification**: Every user is assigned a unique MongoDB `_id` for consistent relationship mapping.
-*   **Multiple Users Supported**: The system architecture supports an unlimited number of concurrent users.
+*   **Username-based Login**: Users can join the platform by providing a unique username.
+*   **Unique Identification**: Every user is assigned a unique MongoDB identifier for consistent relationship mapping.
+*   **Multi-user Support**: The system architecture supports multiple concurrent users.
 
 ### 2. Chat Interface
-*   **Two-panel Layout**: Clean sidebar for user/group selection and a dedicated chat window for conversations.
-*   **Active Chat Highlighting**: Visual feedback when selecting different users or groups.
+*   **Two-panel Layout**: Sidebar for contact selection and a dedicated chat window for conversations.
+*   **Active Chat Highlighting**: Visual feedback when selecting different users.
 *   **Message UI**: Distinct styling for sent vs. received messages with timestamps and status icons.
-*   **Auto-scroll**: The chat window automatically scrolls to the most recent message upon delivery.
+*   **Auto-scroll**: The chat window automatically scrolls to the most recent message.
 
 ### 3. Messaging Functionality
-*   **Message Persistence**: All messages are stored in MongoDB using Mongoose schemas.
-*   **Contextual Fetching**: Retrieves conversation history specific to the selected peer or group.
-*   **Chronological Order**: Messages are displayed in strict order of creation (`createdAt`).
-*   **State Persistence**: Chat history and user sessions remain intact after browser refreshes.
+*   **Message Persistence**: All messages are stored in MongoDB and persist after page refreshes.
+*   **Conversation Fetching**: Retrieves history specific to the selected peer.
+*   **Chronological Order**: Messages are displayed in strict order of creation.
+*   **Metadata**: Each message is associated with a sender, receiver, and timestamp.
 
 ### 4. Backend APIs
 *   `POST /api/users`: Create or find a user by username.
-*   `GET /api/users`: Retrieve all registered users for the contact list.
+*   `GET /api/users`: Retrieve registered users for the contact list.
 *   `POST /api/messages`: Send and persist a new message.
 *   `GET /api/messages/:senderId/:receiverId`: Fetch the full history between two users.
-*   **Standards**: Implementation uses proper HTTP status codes, JSON responses, and error validation.
+*   **Standards**: Implementation uses proper HTTP status codes and JSON responses.
 
 ### 5. Real-Time Updates
-*   **Socket.IO**: Leverages WebSockets for bi-directional communication.
-*   **Instant Delivery**: Messages are pushed to the receiver immediately without page polling.
-*   **Live UI Feedback**: Presence updates (online/offline) and message status (delivered/read) update in real-time.
+*   **Socket.IO**: Leverages WebSockets for instant, bi-directional communication.
+*   **Live Rendering**: Messages appear on the recipient's screen immediately without page polling or refresh.
 
 ### 6. Application Structure
-*   **Separation of Concerns**: Clearly divided `client` (React/Vite) and `server` (Node/Express) directories.
-*   **Reusable Components**: Modular React architecture (e.g., `MessageBubble`, `EmojiPicker`, `UsersList`).
-*   **Clean Schema**: Robust Mongoose models for `User`, `Message`, `Group`, and `CallSession`.
-
----
-
-## 🧠 System Architecture
-
-```mermaid
-graph TD
-    Client[React Frontend] <-->|HTTP/WS| Backend[Express Server]
-    Backend <-->|Mongoose| DB[(MongoDB)]
-    Backend <-->|Socket.IO| Realtime[Real-time Events]
-    Realtime <-->|Broadcast| Client
-```
-
----
-
-## 🔄 Application Flow
-
-```mermaid
-flowchart TD
-    A[Login with Username] --> B[Fetch Contact List]
-    B --> C[Select User/Group]
-    C --> D[Load Message History]
-    D --> E[Send Message]
-    E --> F[Persist to DB]
-    F --> G[Emit via Socket.IO]
-    G --> H[Recipient Receives Instantly]
-```
+*   **Clean Separation**: Modular `client` (React) and `server` (Node/Express) directories.
+*   **Reusable Components**: Component-based React architecture.
+*   **Mongoose Schemas**: Organized data models for Users and Messages.
 
 ---
 
@@ -81,18 +55,18 @@ flowchart TD
 
 ### Core Features
 *   **Real-time Messaging**: Instant text delivery via WebSockets.
-*   **Persistent Storage**: Full message history storage in MongoDB.
+*   **Persistent History**: Full conversation storage in MongoDB.
 *   **User Presence**: Live "Online" status tracking for all users.
-*   **WhatsApp UI**: Premium aesthetics with a responsive two-column layout.
+*   **WhatsApp UI**: Clean, responsive layout inspired by the original web app.
 
-### Additional Features
-*   **Emoji Picker**: Full emoji support for expressive messaging.
-*   **Typing Indicators**: Real-time "is typing..." feedback.
+### Enhancement Features (Prototypes)
+*   **Emoji Support**: Integrated emoji picker for messages.
+*   **Typing Indicators**: Real-time feedback when the other user is typing.
 *   **Read Receipts**: Visual status for Sent, Delivered, and Read messages.
-*   **Group Chats**: Create and participate in group conversations.
-*   **Voice/Video Calls**: Signal-based calling system integrated into the chat.
-*   **Message Reactions**: React to messages with emojis.
-*   **Message Deletion**: Delete messages for everyone in real-time.
+*   **Basic Group Chat Support**: Logic for multi-user conversation handling.
+*   **Call Signaling (UI Simulation)**: Interface and signaling logic for initiating voice/video calls.
+*   **Status UI Prototype**: Early-stage interface for sharing and viewing status updates.
+*   **Message Management**: Features for reacting to or deleting messages.
 
 ---
 
@@ -100,7 +74,7 @@ flowchart TD
 
 | Layer | Technology |
 | :--- | :--- |
-| **Frontend** | React 18, Vite, React Router, Tailwind CSS, Axios |
+| **Frontend** | React, Vite, React Router, Tailwind CSS, Axios |
 | **Backend** | Node.js, Express, Socket.IO |
 | **Database** | MongoDB, Mongoose |
 | **Real-time** | WebSockets (Socket.IO) |
@@ -112,49 +86,36 @@ flowchart TD
 
 ```bash
 ├── client/               # React application (Vite)
-│   ├── components/       # Reusable UI components
-│   ├── features/         # Modular logic (Calls, Status, Workspace)
-│   ├── services/         # API and Socket clients
-│   └── public/           # Static assets & Screenshots
+│   ├── .env.example      # Client environment template
+│   ├── public/           # Static assets & screenshots
+│   └── ...               # Components and Features
 ├── server/               # Node.js Express server
-│   ├── models/           # Mongoose schemas
-│   ├── modules/          # Business logic (Realtime, Users, Messages)
-│   └── routes/           # API Endpoints
+│   ├── .env.example      # Server environment template
+│   └── ...               # Models, Routes, and Logic
 ├── docker-compose.yml    # Orchestration for App & DB
-└── package.json          # Project dependencies & scripts
+└── package.json          # Project scripts and dependencies
 ```
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### Requirements
-*   **Node.js**: v18 or higher
-*   **pnpm**: Recommended package manager
-*   **MongoDB**: v7.0 or higher (or use Docker)
-
 ### Local Setup
 
-1.  **Clone the repository**:
-    ```bash
-    git clone https://github.com/prawinkumar2k/whatsapp-web-clone.git
-    cd whatsapp-web-clone
-    ```
-
-2.  **Install Dependencies**:
+1.  **Install Dependencies**:
     ```bash
     pnpm install
     ```
 
-3.  **Configure Environment**:
-    *   **Server**: Create `server/.env` (use `server/.env.example` as reference)
-    *   **Client**: Create `client/.env` (use `client/.env.example` as reference)
+2.  **Configure Environment**:
+    *   Copy `server/.env.example` to `server/.env`
+    *   Copy `client/.env.example` to `client/.env`
 
-4.  **Run Development Server**:
+3.  **Run Development Server**:
     ```bash
     pnpm dev
     ```
-    *   The app will be available at `http://localhost:8080` (Vite Proxy Mode).
+    *   The app will be available at `http://localhost:8080`.
 
 ---
 
@@ -166,98 +127,24 @@ docker-compose up --build
 ```
 *   **Frontend**: `http://localhost:5173`
 *   **Backend**: `http://localhost:5000`
-*   **MongoDB**: `mongodb://localhost:27018` (External port changed to 27018 to avoid local conflicts)
-
----
-
-## 🛠️ Troubleshooting
-
-### 1. Port 27017 Already Allocated
-If you see an error like `Bind for 0.0.0.0:27017 failed`, it means you have a local MongoDB instance running.
-*   **Solution**: I have configured `docker-compose.yml` to use port **27018** externally. Internal communication remains on 27017, so no code changes are needed.
-
-### 2. Docker Daemon Not Running
-If you see `failed to connect to the docker API`, ensure **Docker Desktop** is open and the engine has started.
-
-### 3. Permission Denied (Linux)
-If you get permission errors, run with `sudo`:
-```bash
-sudo docker-compose up --build
-```
-
-### 4. Cleanup & Reset
-To completely reset your Docker environment:
-```bash
-docker-compose down -v
-docker system prune -a --volumes
-```
+*   **MongoDB (Host Port)**: `27018` (Avoids conflict with local MongoDB on 27017)
 
 ---
 
 ## 📡 API Endpoints
 
-### Users
-*   `POST /api/users`: `{ username: string }`
-*   `GET /api/users`: Returns `Array<User>`
-
-### Messages
-*   `POST /api/messages`: `{ senderId, receiverId, text, groupId? }`
-*   `GET /api/messages/:senderId/:receiverId`: Returns conversation history.
-
----
-
-## 🗄️ Database Design
-
-```mermaid
-erDiagram
-    USER ||--o{ MESSAGE : sends
-    USER ||--o{ MESSAGE : receives
-    USER ||--o{ GROUP : belongs_to
-    GROUP ||--o{ MESSAGE : contains
-    USER {
-        string username
-        boolean isOnline
-    }
-    MESSAGE {
-        string text
-        string status
-        datetime createdAt
-    }
-```
-
----
-
-## 🚀 DevOps & Deployment
-*   **Containerization**: Fully Dockerized with optimized multi-stage builds.
-*   **Orchestration**: `docker-compose` handles service networking and volume persistence for MongoDB.
-*   **Production Build**: Ready for deployment using Vite build and optimized Node.js serving.
-
----
-
-## 📜 License
-Distributed under the MIT License. See `LICENSE` for more information.
+*   `POST /api/users`: Create/Login user.
+*   `GET /api/users`: List all users.
+*   `POST /api/messages`: Send a message.
+*   `GET /api/messages/:sId/:rId`: Get chat history.
 
 ---
 
 ## 📸 Screenshots
 
-### Login Page
-![Login Page](client/public/screenshots/login_v2.png)
-
-### Chat Interface
-![Chat Interface](client/public/screenshots/chat_interface.png)
-
-### Image Sharing & Media
-![Image Sharing](client/public/screenshots/image_sharing.png)
-
-### Status (Stories)
-![Status Stories](client/public/screenshots/status_stories.png)
-
-### Status Viewing Interface
-![Status Viewing Interface](client/public/screenshots/status_view.png)
-
-### Voice & Video Call Signaling
-![Calls Interface](client/public/screenshots/calls_interface.png)
+![Login](client/public/screenshots/login_v2.png)
+![Chat](client/public/screenshots/chat_interface.png)
+![Status](client/public/screenshots/status_stories.png)
 
 ---
 **Developed by [Prawinkumar](https://github.com/prawinkumar2k)**
