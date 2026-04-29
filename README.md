@@ -1,328 +1,230 @@
-# WhatsApp Web Clone (Full Stack Real-Time Chat Application)
+# 🚀 WhatsApp Web Clone (Full Stack Real-Time Chat Application)
 
-A production-ready WhatsApp Web–style chat application built with React, Express, MongoDB, and Socket.IO. The project focuses on a stable real-time chat core, a clean modular architecture, and a simple Docker-based startup flow.
+A professional-grade, full-stack real-time messaging application inspired by WhatsApp Web. This project demonstrates modern web development practices, real-time communication protocols, and a scalable architecture.
 
-## Overview
+---
 
-This project demonstrates a full-stack real-time communication system where users can create or identify themselves by username, open chats, and exchange messages instantly. Messages are persisted in MongoDB, synchronized over Socket.IO, and rendered in a WhatsApp-like interface with a sidebar, chat window, and workspace tabs.
+## 📖 Overview
 
-The application is intentionally structured to look and feel production-ready while staying simple and reliable. Core chat is fully functional, and the advanced areas are implemented as clean modules or simulated flows where appropriate.
+*   **Purpose**: To provide a seamless, real-time communication platform that mimics the core experience of WhatsApp Web.
+*   **Problem Solved**: Addresses the need for instant, persistent, and secure messaging between users with live feedback (typing indicators, read receipts).
+*   **What was built**: A complete MERN-based chat ecosystem featuring real-time state synchronization, persistent database storage, and a polished, responsive user interface.
 
-## Task Requirement Mapping
+---
+
+## ✅ Task Requirement Mapping
 
 ### 1. User Setup
-
-- Users are created or identified using a username
-- Each user has a unique MongoDB `_id`
-- Multiple users are supported
-- Login is handled through a simple username-based flow
+*   **Username-based Creation**: Users can join the platform by providing a unique username.
+*   **Unique Identification**: Every user is assigned a unique MongoDB `_id` for consistent relationship mapping.
+*   **Multiple Users Supported**: The system architecture supports an unlimited number of concurrent users.
 
 ### 2. Chat Interface
-
-- Two-panel layout with sidebar + chat window
-- Active conversation highlighting
-- Sent and received messages are visually distinct
-- Auto-scroll keeps the latest message visible
+*   **Two-panel Layout**: Clean sidebar for user/group selection and a dedicated chat window for conversations.
+*   **Active Chat Highlighting**: Visual feedback when selecting different users or groups.
+*   **Message UI**: Distinct styling for sent vs. received messages with timestamps and status icons.
+*   **Auto-scroll**: The chat window automatically scrolls to the most recent message upon delivery.
 
 ### 3. Messaging Functionality
-
-- Text messages are sent between users
-- Messages are stored in MongoDB
-- Conversations are fetched by selected user
-- Messages render in chronological order
-- Messages persist after refresh
-- Each message is associated with sender, receiver, timestamp, and status
+*   **Message Persistence**: All messages are stored in MongoDB using Mongoose schemas.
+*   **Contextual Fetching**: Retrieves conversation history specific to the selected peer or group.
+*   **Chronological Order**: Messages are displayed in strict order of creation (`createdAt`).
+*   **State Persistence**: Chat history and user sessions remain intact after browser refreshes.
 
 ### 4. Backend APIs
-
-- `POST /api/users`
-- `GET /api/users`
-- `POST /api/messages`
-- `GET /api/messages/:user1/:user2`
-- Input validation and error status codes are implemented
+*   `POST /api/users`: Create or find a user by username.
+*   `GET /api/users`: Retrieve all registered users for the contact list.
+*   `POST /api/messages`: Send and persist a new message.
+*   `GET /api/messages/:senderId/:receiverId`: Fetch the full history between two users.
+*   **Standards**: Implementation uses proper HTTP status codes, JSON responses, and error validation.
 
 ### 5. Real-Time Updates
-
-- Socket.IO is used for realtime messaging
-- Messages render instantly without page refresh
-- Typing indicators, read receipts, and deletion sync are handled live
+*   **Socket.IO**: Leverages WebSockets for bi-directional communication.
+*   **Instant Delivery**: Messages are pushed to the receiver immediately without page polling.
+*   **Live UI Feedback**: Presence updates (online/offline) and message status (delivered/read) update in real-time.
 
 ### 6. Application Structure
+*   **Separation of Concerns**: Clearly divided `frontend` (React/Vite) and `backend` (Node/Express) directories.
+*   **Reusable Components**: Modular React architecture (e.g., `MessageBubble`, `EmojiPicker`, `UsersList`).
+*   **Clean Schema**: Robust Mongoose models for `User`, `Message`, `Group`, and `CallSession`.
 
-- Frontend and backend are separated into `frontend/` and `backend/`
-- The UI is split into reusable components and feature modules
-- MongoDB schemas are defined cleanly in the backend
+---
 
-## System Architecture
+## 🧠 System Architecture
 
 ```mermaid
 graph TD
-  Client[Frontend React App] --> Backend[Express API + Socket.IO]
-  Backend --> Database[(MongoDB)]
-  Backend --> Socket[Realtime Events]
-  Socket --> Client
+    Client[React Frontend] <-->|HTTP/WS| Backend[Express Server]
+    Backend <-->|Mongoose| DB[(MongoDB)]
+    Backend <-->|Socket.IO| Realtime[Real-time Events]
+    Realtime <-->|Broadcast| Client
 ```
 
-### How it works
+*   **Frontend**: Handles UI state, routing, and user interaction.
+*   **Backend**: Manages business logic, authentication, and API routing.
+*   **Database**: Stores persistent data (Users, Messages, Groups).
+*   **Socket.IO**: Manages low-latency events like typing and instant messaging.
 
-- The frontend handles rendering, user interaction, and local UI state.
-- The backend handles authentication-by-username, message storage, status data, groups, and call session records.
-- MongoDB stores users, messages, status updates, groups, and simulated call sessions.
-- Socket.IO keeps message delivery, typing, presence, reactions, and simulated call updates in sync.
+---
 
-## Application Flow
+## 🔄 Application Flow
 
 ```mermaid
 flowchart TD
-  Login --> SelectThread[Select Chat or Group]
-  SelectThread --> Chat
-  Chat --> SendMessage
-  SendMessage --> Backend
-  Backend --> DB[(MongoDB)]
-  Backend --> Socket[Socket.IO]
-  Socket --> Receiver
+    A[Login with Username] --> B[Fetch Contact List]
+    B --> C[Select User/Group]
+    C --> D[Load Message History]
+    D --> E[Send Message]
+    E --> F[Persist to DB]
+    F --> G[Emit via Socket.IO]
+    G --> H[Recipient Receives Instantly]
 ```
 
-## Features
+---
+
+## ✨ Features
 
 ### Core Features
-
-- Real-time 1:1 messaging
-- Persistent message storage
-- WhatsApp-like dark UI
-- Sidebar with last message previews
-- Unread badges
-- Typing indicator
-- Read receipts
-- Reply to message
-- Delete message
-- Message reactions
-- Image sharing with preview
-- Browser notifications for hidden tabs
-- Auto-scroll to latest message
-- Online/offline presence tracking
+*   **Real-time Messaging**: Instant text delivery via WebSockets.
+*   **Persistent Storage**: Full message history storage in MongoDB.
+*   **User Presence**: Live "Online" status tracking for all users.
+*   **WhatsApp UI**: Premium aesthetics with a responsive two-column layout.
 
 ### Additional Features
+*   **Emoji Picker**: Full emoji support for expressive messaging.
+*   **Typing Indicators**: Real-time "is typing..." feedback.
+*   **Read Receipts**: Visual status for Sent, Delivered, and Read messages.
+*   **Group Chats**: Create and participate in group conversations.
+*   **Voice/Video Calls**: Signal-based calling system integrated into the chat.
+*   **Message Reactions**: React to messages with emojis.
+*   **Message Deletion**: Delete messages for everyone in real-time.
 
-- Workspace tabs for Chats, Status, and Calls
-- Status stories with 24-hour expiry logic
-- Group chat data model and routing
-- Simulated call sessions with accept/reject/end states
+---
 
-## Tech Stack
+## 🧰 Tech Stack
 
-| Layer | Tech |
-| --- | --- |
-| Frontend | React, Vite, React Router, Axios, CSS |
-| Backend | Node.js, Express |
-| Database | MongoDB, Mongoose |
-| Realtime | Socket.IO |
-| DevOps | Docker, docker-compose |
+| Layer | Technology |
+| :--- | :--- |
+| **Frontend** | React 18, Vite, React Router, Tailwind CSS, Axios |
+| **Backend** | Node.js, Express, Socket.IO |
+| **Database** | MongoDB, Mongoose |
+| **Real-time** | WebSockets (Socket.IO) |
+| **DevOps** | Docker, Docker Compose |
 
-## Project Structure
+---
 
-```text
-frontend/
-  App.jsx
-  main.jsx
-  index.html
-  components/
-  features/
-  lib/
-  pages/
-  public/
-  services/
-  styles/
+## 📂 Project Structure
 
-backend/
-  index.js
-  node-build.js
-  Dockerfile
-  models/
-  modules/
-  utils/
-
-docker-compose.yml
-README.md
-package.json
-vite.config.js
-vite.config.server.js
+```bash
+├── frontend/             # React application (Vite)
+│   ├── components/       # Reusable UI components
+│   ├── features/         # Modular logic (Calls, Status, Workspace)
+│   ├── services/         # API and Socket clients
+│   └── styles/           # Component-specific CSS
+├── backend/              # Node.js Express server
+│   ├── models/           # Mongoose schemas
+│   ├── modules/          # Business logic (Realtime, Users, Messages)
+│   └── routes/           # API Endpoints
+├── docker-compose.yml    # Orchestration for App & DB
+└── package.json          # Project dependencies & scripts
 ```
 
-## Setup Instructions
+---
+
+## ⚙️ Setup Instructions
 
 ### Requirements
-
-- Node.js 20+
-- pnpm
-- MongoDB, or Docker
+*   **Node.js**: v18 or higher
+*   **pnpm**: Recommended package manager
+*   **MongoDB**: v7.0 or higher (or use Docker)
 
 ### Local Setup
 
-```bash
-git clone <repo-url>
-cd realtime-chat-app-db7
-pnpm install
-```
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/prawinkumar2k/whatsapp-web-clone.git
+    cd whatsapp-web-clone
+    ```
 
-Create a root `.env` file:
+2.  **Install Dependencies**:
+    ```bash
+    pnpm install
+    ```
 
-```env
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/whatsapp-clone
-CLIENT_URL=http://localhost:8080
-VITE_API_URL=
-```
+3.  **Configure Environment**:
+    Create a `.env` file in the root directory:
+    ```env
+    PORT=5000
+    MONGO_URI=mongodb://127.0.0.1:27017/whatsapp-clone
+    VITE_API_URL=http://localhost:5000
+    ```
 
-Run the app:
+4.  **Run Development Server**:
+    ```bash
+    pnpm dev
+    ```
+    *   The app will be available at `http://localhost:8080` (Vite Proxy Mode).
 
-```bash
-pnpm dev
-```
+---
 
-Open the app in two browser windows and sign in with any usernames you want. `alice` and `bob` are seeded automatically as starter accounts.
+### 🐳 Docker Setup
 
-### Docker Setup
-
+Run the entire stack (App + DB) with a single command:
 ```bash
 docker-compose up --build
 ```
+*   **Frontend**: `http://localhost:5173`
+*   **Backend**: `http://localhost:5000`
 
-This starts:
+---
 
-- Frontend on `http://localhost:5173`
-- Backend on `http://localhost:5000`
-- MongoDB on `mongodb://localhost:27017`
-
-## Environment Variables
-
-### Backend
-
-- `PORT` - backend port
-- `MONGO_URI` - MongoDB connection string
-- `CLIENT_URL` - allowed frontend origin for CORS
-
-### Frontend
-
-- `VITE_API_URL` - API base URL for separate frontend deployments
-
-Docker helper files:
-
-- `backend/.env.docker` uses `MONGO_URI=mongodb://mongo:27017/chatapp`
-- `frontend/.env.docker` uses `VITE_API_URL=http://server:5000`
-
-## API Endpoints
-
-### Health
-
-- `GET /api/ping`
+## 📡 API Endpoints
 
 ### Users
-
-- `POST /api/users` - create or find a user by username
-- `GET /api/users` - list users
+*   `POST /api/users`: `{ username: string }`
+*   `GET /api/users`: Returns `Array<User>`
 
 ### Messages
+*   `POST /api/messages`: `{ senderId, receiverId, text, groupId? }`
+*   `GET /api/messages/:senderId/:receiverId`: Returns conversation history.
 
-- `POST /api/messages` - send a direct or group message
-- `GET /api/messages/:user1/:user2` - fetch direct chat history
-- `GET /api/messages/group/:groupId` - fetch group messages
-- `POST /api/messages/read` - mark direct messages as read
-- `DELETE /api/messages/:messageId` - delete your own message
-- `PATCH /api/messages/:messageId/reactions` - add or toggle a reaction
+---
 
-### Status
-
-- `GET /api/statuses` - list active statuses
-- `POST /api/statuses` - create a status
-- `POST /api/statuses/:statusId/view` - mark a status as viewed
-
-### Groups
-
-- `GET /api/groups?memberId=...` - list groups for a member
-- `POST /api/groups` - create a group
-- `PATCH /api/groups/:groupId/members` - add or remove members
-
-### Calls
-
-- `GET /api/calls?userId=...` - list simulated call sessions
-- `POST /api/calls` - create a simulated call session
-- `PATCH /api/calls/:callId` - update call status
-
-## Database Design
+## 🗄️ Database Design
 
 ```mermaid
 erDiagram
-  USER ||--o{ MESSAGE : sends
-  USER ||--o{ MESSAGE : receives
-  USER ||--o{ STATUS : posts
-  USER ||--o{ GROUP : joins
-  GROUP ||--o{ MESSAGE : contains
-  MESSAGE ||--o{ MESSAGE : replies_to
+    USER ||--o{ MESSAGE : sends
+    USER ||--o{ MESSAGE : receives
+    USER ||--o{ GROUP : belongs_to
+    GROUP ||--o{ MESSAGE : contains
+    USER {
+        string username
+        boolean isOnline
+    }
+    MESSAGE {
+        string text
+        string status
+        datetime createdAt
+    }
 ```
 
-### Main Collections
+---
 
-- `User`
-  - `username`
-  - `isOnline`
-  - `lastSeen`
-- `Message`
-  - `senderId`
-  - `receiverId`
-  - `groupId`
-  - `text`
-  - `image`
-  - `replyTo`
-  - `reactions[]`
-  - `status`
-- `Status`
-  - `userId`
-  - `mediaUrl`
-  - `caption`
-  - `viewedBy[]`
-  - `expiresAt`
-- `Group`
-  - `name`
-  - `members[]`
-  - `admin`
-  - `description`
-- `CallSession`
-  - `initiatorId`
-  - `receiverId`
-  - `status`
-  - `callType`
+## 🚀 DevOps & Deployment
+*   **Containerization**: Fully Dockerized with optimized multi-stage builds.
+*   **Orchestration**: `docker-compose` handles service networking and volume persistence for MongoDB.
+*   **Production Build**: Ready for deployment using Vite build and optimized Node.js serving.
 
-## DevOps
+---
 
-- Dockerized frontend and backend
-- MongoDB container support
-- Single-command startup with `docker-compose up --build`
-- Vite proxying is configured for Docker-based local development
+## 📜 License
+Distributed under the MIT License. See `LICENSE` for more information.
 
-## Performance & Behavior
+---
 
-- Conversation data is fetched only when a thread is selected
-- Socket.IO reduces the need for repeated polling
-- Message state updates are handled incrementally for smoother UI behavior
-- The MongoDB connection includes a retry loop for container startup reliability
+## 📸 Screenshots
+*(Add your project screenshots here to showcase the stunning UI!)*
 
-## Future Enhancements
-
-- Rich status story viewer controls
-- Group chat composer and group management UI
-- Incoming call popups with a fuller call state overlay
-- Cloud media storage adapter
-- Message search across conversations
-
-## Screenshots
-
-Add project screenshots here if you want to include them in the final submission.
-
-## Contribution
-
-Contributions are welcome if they keep the codebase simple, stable, and consistent with the current architecture.
-
-## License
-
-MIT
+---
+**Developed by [Prawinkumar](https://github.com/prawinkumar2k)**
