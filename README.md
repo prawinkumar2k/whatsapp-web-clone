@@ -240,5 +240,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ### Status Viewing Interface
 ![Status Viewing Interface](./screenshots/status_view.png)
 
+### Voice & Video Call Signaling
+![Calls Interface](./screenshots/calls_interface.png)
+
 ---
 **Developed by [Prawinkumar](https://github.com/prawinkumar2k)**
