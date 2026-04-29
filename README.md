@@ -224,7 +224,15 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 ## 📸 Screenshots
-*(Add your project screenshots here to showcase the stunning UI!)*
+
+### Login Page
+![Login Page](./screenshots/login_page.png)
+
+### Chat Interface
+![Chat Interface](./screenshots/chat_interface.png)
+
+### Image Sharing & Media
+![Image Sharing](./screenshots/image_sharing.png)
 
 ---
 **Developed by [Prawinkumar](https://github.com/prawinkumar2k)**
