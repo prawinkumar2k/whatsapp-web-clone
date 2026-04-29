@@ -237,5 +237,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ### Status (Stories)
 ![Status Stories](./screenshots/status_stories.png)
 
+### Status Viewing Interface
+![Status Viewing Interface](./screenshots/status_view.png)
+
 ---
 **Developed by [Prawinkumar](https://github.com/prawinkumar2k)**
