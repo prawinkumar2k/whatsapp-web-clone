@@ -1,0 +1,88 @@
+.ws-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0b141a;
+  color: #e9edef;
+}
+
+.ws-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  background: #111b21;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ws-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ws-brand strong {
+  display: block;
+  font-size: 15px;
+}
+
+.ws-brand span {
+  display: block;
+  font-size: 12px;
+  color: #8696a0;
+}
+
+.ws-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00a884;
+  box-shadow: 0 0 0 8px rgba(0, 168, 132, 0.1);
+}
+
+.ws-tablist {
+  display: inline-flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ws-tab,
+.ws-logout {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  transition: all 0.2s ease;
+}
+
+.ws-tab {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: transparent;
+  color: #8696a0;
+}
+
+.ws-tab.active {
+  background: #202c33;
+  color: #e9edef;
+}
+
+.ws-tab:hover,
+.ws-logout:hover {
+  transform: translateY(-1px);
+}
+
+.ws-logout {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #005c4b;
+  color: #fff;
+}
+
+.ws-stage {
+  flex: 1;
+  min-height: 0;
+}

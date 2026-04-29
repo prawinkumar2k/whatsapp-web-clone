@@ -1,0 +1,71 @@
+.cp-root {
+  min-height: calc(100vh - 70px);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.cp-active {
+  display: grid;
+  place-items: center;
+  gap: 16px;
+  padding: 28px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #111b21 0%, #202c33 100%);
+  margin-bottom: 18px;
+}
+
+.cp-ring {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, rgba(0, 168, 132, 0.22), rgba(0, 168, 132, 0.04));
+  color: #70f0d0;
+  font-size: 18px;
+}
+
+.cp-actions,
+.cp-contact-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.cp-button,
+.cp-contact-actions button {
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  background: #202c33;
+  color: #e9edef;
+  cursor: pointer;
+}
+
+.cp-button.accept,
+.cp-contact-actions button:first-child {
+  background: #00a884;
+  color: #081c14;
+}
+
+.cp-button.reject {
+  background: #c94e4e;
+}
+
+.cp-contact-list,
+.cp-history {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.cp-contact-row,
+.cp-history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+}
