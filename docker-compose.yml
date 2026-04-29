@@ -1,38 +1,43 @@
 services:
   mongo:
     image: mongo:7
+    container_name: chatapp-mongo
     restart: unless-stopped
     ports:
-      - "27017:27017"
+      - "27018:27017" # Changed external port to 27018 to avoid local conflicts
     volumes:
       - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   server:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    container_name: chatapp-server
     restart: unless-stopped
-    env_file:
-      - ./backend/.env.docker
     environment:
-      PORT: 5000
-      MONGO_URI: mongodb://mongo:27017/chatapp
-      CLIENT_URL: http://localhost:5173
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/chatapp
+      - CLIENT_URL=http://localhost:5173
     ports:
       - "5000:5000"
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
 
   client:
     build:
       context: .
       dockerfile: frontend/Dockerfile
+    container_name: chatapp-client
     restart: unless-stopped
-    env_file:
-      - ./frontend/.env.docker
     environment:
-      VITE_API_URL: http://server:5000
-      USE_SEPARATE_BACKEND: "true"
+      - VITE_API_URL=http://localhost:5000
+      - USE_SEPARATE_BACKEND=true
     ports:
       - "5173:5173"
     depends_on:

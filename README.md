@@ -167,6 +167,8 @@ flowchart TD
 
 ---
 
+---
+
 ### 🐳 Docker Setup
 
 Run the entire stack (App + DB) with a single command:
@@ -175,6 +177,31 @@ docker-compose up --build
 ```
 *   **Frontend**: `http://localhost:5173`
 *   **Backend**: `http://localhost:5000`
+*   **MongoDB**: `mongodb://localhost:27018` (External port changed to 27018 to avoid local conflicts)
+
+---
+
+## 🛠️ Troubleshooting
+
+### 1. Port 27017 Already Allocated
+If you see an error like `Bind for 0.0.0.0:27017 failed`, it means you have a local MongoDB instance running.
+*   **Solution**: I have configured `docker-compose.yml` to use port **27018** externally. Internal communication remains on 27017, so no code changes are needed.
+
+### 2. Docker Daemon Not Running
+If you see `failed to connect to the docker API`, ensure **Docker Desktop** is open and the engine has started.
+
+### 3. Permission Denied (Linux)
+If you get permission errors, run with `sudo`:
+```bash
+sudo docker-compose up --build
+```
+
+### 4. Cleanup & Reset
+To completely reset your Docker environment:
+```bash
+docker-compose down -v
+docker system prune -a --volumes
+```
 
 ---
 
