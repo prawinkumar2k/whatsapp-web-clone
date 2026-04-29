@@ -226,7 +226,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 📸 Screenshots
 
 ### Login Page
-![Login Page](./screenshots/login_page.png)
+![Login Page](./screenshots/login_v2.png)
 
 ### Chat Interface
 ![Chat Interface](./screenshots/chat_interface.png)
